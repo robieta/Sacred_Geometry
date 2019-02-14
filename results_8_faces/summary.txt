@@ -1,0 +1,80 @@
+1 dice complete:
+  0.1902 seconds  (0.0002 in primary compute)
+  0 / 8 rolls succeed at all 9 levels.
+  0 / 8  (0.000000000%) that a roll will succeed at all 9 levels
+
+2 dice complete:
+  0.1967 seconds  (0.0024 in primary compute)
+  0 / 36 rolls succeed at all 9 levels.
+  0 / 64  (0.000000000%) that a roll will succeed at all 9 levels
+
+3 dice complete:
+  0.2319 seconds  (0.0334 in primary compute)
+  0 / 120 rolls succeed at all 9 levels.
+  0 / 512  (0.000000000%) that a roll will succeed at all 9 levels
+
+4 dice complete:
+  0.4945 seconds  (0.2865 in primary compute)
+  8 / 330 rolls succeed at all 9 levels.
+  156 / 4096  (3.808593750%) that a roll will succeed at all 9 levels
+
+5 dice complete:
+  1.9540 seconds  (1.7325 in primary compute)
+  463 / 792 rolls succeed at all 9 levels.
+  24245 / 32768  (73.989868164%) that a roll will succeed at all 9 levels
+
+6 dice complete:
+  4.8427 seconds  (4.5942 in primary compute)
+  1584 / 1716 rolls succeed at all 9 levels.
+  257049 / 262144  (98.056411743%) that a roll will succeed at all 9 levels
+
+7 dice complete:
+  7.9673 seconds  (7.6709 in primary compute)
+  3368 / 3432 rolls succeed at all 9 levels.
+  2093653 / 2097152  (99.833154678%) that a roll will succeed at all 9 levels
+
+8 dice complete:
+  11.9466 seconds  (11.5518 in primary compute)
+  6401 / 6435 rolls succeed at all 9 levels.
+  16775216 / 16777216  (99.988079071%) that a roll will succeed at all 9 levels
+
+9 dice complete:
+  19.7253 seconds  (18.7943 in primary compute)
+  11422 / 11440 rolls succeed at all 9 levels.
+  134216841 / 134217728  (99.999339134%) that a roll will succeed at all 9 levels
+
+10 dice complete:
+  34.7028 seconds  (32.8449 in primary compute)
+  19439 / 19448 rolls succeed at all 9 levels.
+  1073741518 / 1073741824  (99.999971502%) that a roll will succeed at all 9 levels
+
+11 dice complete:
+  63.8436 seconds  (60.5973 in primary compute)
+  31820 / 31824 rolls succeed at all 9 levels.
+  8589934514 / 8589934592  (99.999999092%) that a roll will succeed at all 9 levels
+
+12 dice complete:
+  122.3646 seconds  (116.9706 in primary compute)
+  50386 / 50388 rolls succeed at all 9 levels.
+  68719476723 / 68719476736  (99.999999981%) that a roll will succeed at all 9 levels
+
+13 dice complete:
+  219.2579 seconds  (210.6068 in primary compute)
+  77519 / 77520 rolls succeed at all 9 levels.
+  549755813887 / 549755813888  (100.000000000%) that a roll will succeed at all 9 levels
+
+14 dice complete:
+  399.8508 seconds  (386.1633 in primary compute)
+  116280 / 116280 rolls succeed at all 9 levels.
+  4398046511104 / 4398046511104  (100.000000000%) that a roll will succeed at all 9 levels
+
+partition_counts    hit_rate=95.6%   CacheInfo(hits=507541, misses=23525, maxsize=1000000, currsize=23525)
+int_combine         hit_rate=97.4%   CacheInfo(hits=832055, misses=22047, maxsize=1000000, currsize=22047)
+group_contiguous    hit_rate=96.9%   CacheInfo(hits=61602, misses=1978, maxsize=1000000, currsize=1978)
+_vector_combine     hit_rate=90.9%   CacheInfo(hits=815173, misses=81849, maxsize=1000000, currsize=81849)
+vector_combine      hit_rate=95.7%   CacheInfo(hits=705931, misses=31790, maxsize=1000000, currsize=31790)
+all_computable      hit_rate=71.7%   CacheInfo(hits=1287242, misses=509062, maxsize=1000000, currsize=509062)
+conj_vector         hit_rate=94.8%   CacheInfo(hits=775286, misses=42719, maxsize=1000000, currsize=42719)
+fact                hit_rate=100.0%   CacheInfo(hits=2272557, misses=14, maxsize=100, currsize=14)
+code_op_to_str      hit_rate=60.7%   CacheInfo(hits=16389565, misses=10631155, maxsize=1000000, currsize=1000000)
+_lookup_formula     hit_rate=57.8%   CacheInfo(hits=21371080, misses=15620934, maxsize=1000000, currsize=1000000)

@@ -15,7 +15,7 @@ import typing
 assert sys.version_info[:2] >= (3, 7)
 
 
-DICE_FACES = 8
+DICE_FACES = 6
 LRU_CACHE_SIZE = int(1e6)
 MAX_SUBSEGMENT_FIRST_PASS = 110  # Drop large values as they are generally not needed and exacerbate the combinatorics
 SUBSOLUTION_CACHE = {}
@@ -101,6 +101,12 @@ def int_combine(a, b):
 
 @functools.lru_cache(maxsize=LRU_CACHE_SIZE)
 def _vector_combine(x, y, max_subsegment):
+    # type: (typing.Iterable[int], typing.Iterable[int], int) -> typing.ItemsView[int, tuple]
+    """Inner cached vector combination function.
+
+    This function expects to be given contiguous blocks of integers, and as a result picks up some additional cache
+    hits on combination tasks which have a small number of missing elements.
+    """
     results = {}
     for i in x:
         for j in y:
@@ -114,6 +120,9 @@ def _vector_combine(x, y, max_subsegment):
 
 @functools.lru_cache(maxsize=LRU_CACHE_SIZE)
 def vector_combine(x, y, max_subsegment):
+    # type: (tuple, tuple, int) -> dict
+    """Enumerate all ways that two vectors of candidates can be combined up to an optional maximum value.
+    """
     x_grouped = group_contiguous(x)
     y_grouped = group_contiguous(y)
 
@@ -128,11 +137,17 @@ def vector_combine(x, y, max_subsegment):
 
 @functools.lru_cache(maxsize=LRU_CACHE_SIZE)
 def conj_vector(partition, counts):
+    # type: (tuple, tuple) -> tuple
+    """Convenience function to compute the conjugate set of a given partition.
+    """
     return tuple(ct - partition[i] for i, ct in enumerate(counts))
 
 
 @functools.lru_cache(maxsize=LRU_CACHE_SIZE)
 def all_computable(keys, counts, max_subsegment):
+    """Recursively compute the set of numbers that a combination of rolls can compute.
+    """
+    # type: (typing.Tuple[int], typing.Tuple[int], int) -> tuple
     if sum(counts) == 1:
         return tuple(keys[i] for i, ct in enumerate(counts) if ct)
 
@@ -245,14 +260,18 @@ def clear_caches():
             fn.cache_clear()
 
 
-def cache_info():
+def cache_info(write_to_summary=False):
     name_len = max([len(fn.__name__) for fn in CACHED_FNS])
     for fn in CACHED_FNS:
         if not hasattr(fn, "cache_info"):
             continue
         info = fn.cache_info()
         hit_rate = info.hits / (info.hits + info.misses)
-        print(fn.__name__.ljust(name_len + 3), f"hit_rate={hit_rate*100:.1f}%  ", info)
+        info_str = "{} {} {}".format(fn.__name__.ljust(name_len + 3), f"hit_rate={hit_rate*100:.1f}%  ", info)
+        print(info_str)
+        if write_to_summary:
+            with open(os.path.join(OUTPUT_DIR, "summary.txt"), "at") as f:
+                f.write(info_str + "\n")
 
 
 def main(max_num_dice=4):
@@ -302,14 +321,14 @@ def main(max_num_dice=4):
 
         omega_perfect = sum([omega if all(result) else 0 for omega, result in zip(omegas, results)])
 
-        table_path = os.path.join(OUTPUT_DIR, f"solutions_{num_dice}_dice.txt")
+        table_path = os.path.join(OUTPUT_DIR, f"solutions_{str(num_dice).zfill(2)}_dice.txt")
 
         with open(table_path, "wt", encoding="utf-8") as f:
             for line in lines:
                 f.write(line + "\n")
 
         if impossible_lines:
-            impossible_path = os.path.join(OUTPUT_DIR, f"impossible_{num_dice}_dice.txt")
+            impossible_path = os.path.join(OUTPUT_DIR, f"impossible_{str(num_dice).zfill(2)}_dice.txt")
             with open(impossible_path, "wt", encoding="utf-8") as f:
                 for line in impossible_lines:
                     f.write(line + "\n")
@@ -335,5 +354,5 @@ def main(max_num_dice=4):
 
 if __name__ == "__main__":
     # cProfile.run("main(12)")
-    main(20)
-    cache_info()
+    main(20 if DICE_FACES <= 6 else 14)
+    cache_info(True)
